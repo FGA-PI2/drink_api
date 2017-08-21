@@ -2,7 +2,6 @@
 API restful para o projeto Drinks da disciplina Projeto integrador 2 - FGA 2/2017
 
 # Instalação
-Realize a instalação das dependencias do projeto. (Recomenda-se o uso do [VirtualEnv](http://levipy.com/virtualenv-and-virtualenvwrapper-tutorial/)) 
 
 Instale o pip.
 ```apt install python-pip```
