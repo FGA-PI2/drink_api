@@ -12,7 +12,7 @@ Instale as dependencias do projeto:
 `pip install -r requirements.txt`
 
 
-Realize as migraçes do banco de dados: 
+Realize as migrações do banco de dados: 
 ```
 ./manage.py makemigrtations
 ./manage.py migrate 
