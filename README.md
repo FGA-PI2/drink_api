@@ -14,7 +14,7 @@ Instale as dependencias do projeto:
 
 Realize as migrações do banco de dados: 
 ```
-./manage.py makemigrtations
+./manage.py makemigrations
 ./manage.py migrate 
 
 Para rodar o projeto localmente, execute:
