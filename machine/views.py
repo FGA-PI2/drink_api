@@ -14,3 +14,22 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    lookup_field = 'username'
+
+
+class BebidasViewSet(viewsets.ModelViewSet):
+    """
+    Viewset to return bebidas information.
+    """
+
+    queryset = Bebida.objects.all()
+    serializer_class = BebidasSerializer
+    lookup_field = "name"
+
+class RackViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet to return the information about racks.
+    """
+
+    queryset = Rack.objects.all()
+    serializer_class = RackSerializer
