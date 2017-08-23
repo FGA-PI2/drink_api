@@ -18,12 +18,18 @@ class BebidasSerializer(serializers.ModelSerializer):
 
 class RackSerializer(serializers.ModelSerializer):
 
-    bebida = serializers.SlugRelatedField(
-            many=True,
-            read_only=True,
-            slug_field='name'
-            )
-
     class Meta:
         model = Rack
+        fields = "__all__"
+
+class EstoqueSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Estoque
+        fields = "__all__"
+
+class QuantidadeCompraSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = QuantidadeCompra
         fields = "__all__"

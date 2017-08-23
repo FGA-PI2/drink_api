@@ -13,17 +13,50 @@ class User(AbstractUser):
 
 class Bebida(models.Model):
 
-    name = models.CharField(max_length=20,null=False,blank=False,unique=True)
-    price = models.FloatField()
-    quantity = models.IntegerField(max_length=100)
-    rack = models.ForeignKey('Bebida',null=True,related_name="bebidas")
+    nome = models.CharField(max_length=20,null=False,blank=False,unique=True)
+    preco = models.FloatField()
+    volume = models.FloatField()
 
     def __unicode__(self):
-        return "{} - {}".format(self.name,self.price,self.quantity)
+        return "{} - R${} - Garrafa em: {} ml".format(self.nome,self.preco,self.volume)
 
 class Rack(models.Model):
 
     date = models.DateTimeField(auto_now=True)
+    quantidade = models.ForeignKey('QuantidadeLitro')
 
     def __unicode__(self):
         return "{} - {}".format(self.id,self.date)
+
+class Estoque(models.Model):
+
+    bebida = models.OneToOneField('Bebida',null=False,blank=True,unique=True)
+    quantidade = models.IntegerField()
+
+
+    def __unicode__(self):
+        return "Resta {} {}".format(self.quantidade,self.bebida.nome)
+
+
+class QuantidadeCompra(models.Model):
+
+    bebida = models.OneToOneField('Bebida',null=False,blank=True,unique=True)
+    porcentagem = models.FloatField()
+
+    def __unicode__(self):
+        return "{} {} {}".format(self.bebida.name,self.porcentagem)
+
+class QuantidadeLitro(QuantidadeCompra):
+
+    m_litros = models.FloatField()
+
+    def __unicode__(self):
+        return "{} {} {}".format(self.bebida.name,self.porcentagem,self.m_litros)
+
+class Compra(models.Model):
+
+    usuario = models.ForeignKey(User,blank=False,null=False)
+    quantidade = models.ForeignKey(QuantidadeCompra,blank=False,null=False)
+
+
+    # reescrever o Save()

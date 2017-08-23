@@ -33,3 +33,13 @@ class RackViewSet(viewsets.ModelViewSet):
 
     queryset = Rack.objects.all()
     serializer_class = RackSerializer
+
+class EstoqueViewSet(viewsets.ModelViewSet):
+
+    queryset = Estoque.objects.all()
+    serializer_class = EstoqueSerializer
+
+class QuantidadeCompraViewSet(viewsets.ModelViewSet):
+
+    queryset = QuantidadeCompra.objects.all()
+    serializer_class = QuantidadeCompraSerializer
