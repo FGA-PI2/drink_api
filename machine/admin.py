@@ -12,4 +12,13 @@ class UserAdmin(admin.ModelAdmin):
    search_fields = ('name',)    
 
 
+class BebidaAdmin(admin.ModelAdmin):
+   fields = ('nome','preco','volume')
+   search_fields = ('nome','preco')
+
+class EstoqueAdmin(admin.ModelAdmin):
+   fields = ('bebida','quantidade')
+   search_fields = ('bebida','quantidade')  
+
 admin.site.register(User,UserAdmin)
+admin.site.register(Bebida,BebidaAdmin)
