@@ -22,3 +22,4 @@ class EstoqueAdmin(admin.ModelAdmin):
 
 admin.site.register(User,UserAdmin)
 admin.site.register(Bebida,BebidaAdmin)
+admin.site.register(Estoque,BebidaAdmin)
