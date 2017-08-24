@@ -93,10 +93,10 @@ DATABASES = {
 
 
 # this disables Cross domain requests
-CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALLOW_ALL') 
+CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALLOW_ALL',default=True,cast=bool)
 
 # this allows cookie being passed cross domain    
-CORS_ALLOW_CREDENTIALS = config('CORS_ALLOW_CREDENTIALS') 
+CORS_ALLOW_CREDENTIALS = config('CORS_ALLOW_CREDENTIALS',default=True,cast=bool) 
 
 
 
