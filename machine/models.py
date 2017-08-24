@@ -44,7 +44,7 @@ class QuantidadeCompra(models.Model):
     porcentagem = models.FloatField()
 
     def __unicode__(self):
-        return "{} {} {}".format(self.bebida.name,self.porcentagem)
+        return "{} {} {}".format(self.bebida.nome,self.porcentagem)
 
 class QuantidadeLitro(QuantidadeCompra):
 
