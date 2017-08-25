@@ -3,18 +3,23 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from .models import *
-from rest_framework import viewsets
+
 from serializers import *
+from rest_framework import viewsets,generics
+import django_filters.rest_framework
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewList(generics.ListCreateAPIView):
     """
     Simple View to render the User information json.
     """
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    lookup_field = 'email'
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_fields = ('email',)
 
 
 class BebidasViewSet(viewsets.ModelViewSet):

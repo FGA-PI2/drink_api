@@ -4,12 +4,12 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 # Register your models here.
-from models import * 
+from models import *
 from django.db.models.base import ModelBase
 
 
 class UserAdmin(admin.ModelAdmin):
-   search_fields = ('name',)    
+   search_fields = ('name',)
 
 
 class BebidaAdmin(admin.ModelAdmin):
@@ -18,7 +18,7 @@ class BebidaAdmin(admin.ModelAdmin):
 
 class EstoqueAdmin(admin.ModelAdmin):
    fields = ('bebida','quantidade')
-   search_fields = ('bebida','quantidade')  
+   search_fields = ('bebida','quantidade')
 
 admin.site.register(User,UserAdmin)
 admin.site.register(Bebida,BebidaAdmin)
