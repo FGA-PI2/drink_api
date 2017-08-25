@@ -14,7 +14,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    lookup_field = 'username'
+    lookup_field = 'email'
 
 
 class BebidasViewSet(viewsets.ModelViewSet):
