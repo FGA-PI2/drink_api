@@ -20,7 +20,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 class User(AbstractBaseUser):
 
     email = models.EmailField(unique=True)
-    creditos = models.FloatField()
+    creditos = models.FloatField(default=0)
     data_nascimento = models.DateField()
     is_superuser = models.BooleanField(default=False)
 
