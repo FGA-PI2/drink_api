@@ -9,6 +9,7 @@ router.register(r'users',UserViewSet)
 router.register(r'bebida',BebidasViewSet)
 router.register(r'racks',RackViewSet)
 router.register(r'estoque',EstoqueViewSet)
+router.register(r'compras',CompraViewSet)
 router.register(r'quantidade-compra',QuantidadeCompraViewSet)
 
 urlpatterns = [

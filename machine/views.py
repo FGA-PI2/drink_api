@@ -43,3 +43,8 @@ class QuantidadeCompraViewSet(viewsets.ModelViewSet):
 
     queryset = QuantidadeCompra.objects.all()
     serializer_class = QuantidadeCompraSerializer
+
+class CompraViewSet(viewsets.ModelViewSet):
+
+    queryset = Compra.objects.all()
+    serializer_class = CompraSerializer

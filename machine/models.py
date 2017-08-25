@@ -13,7 +13,7 @@ class User(AbstractBaseUser):
 
     email = models.EmailField(unique=True)
     creditos = models.FloatField()
-    data_nascimento = models.DateTimeField()
+    data_nascimento = models.DateField()
     is_superuser = models.BooleanField(default=False)
 
     objects = UserManager()

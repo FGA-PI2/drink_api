@@ -33,3 +33,11 @@ class QuantidadeCompraSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuantidadeCompra
         fields = "__all__"
+
+class CompraSerializer(serializers.ModelSerializer):
+
+    quantidade = QuantidadeCompraSerializer()
+
+    class Meta:
+        model = Compra
+        fields = "__all__"
