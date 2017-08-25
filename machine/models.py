@@ -62,11 +62,12 @@ class Estoque(models.Model):
 
 class QuantidadeCompra(models.Model):
 
-    bebida = models.OneToOneField('Bebida',null=False,blank=True,unique=True)
+    bebida = models.ForeignKey('Bebida',null=False,blank=True)
     porcentagem = models.FloatField()
+    compra = models.ForeignKey('Compra',blank=True,null=True,related_name="pedido")
 
     def __unicode__(self):
-        return "{} {} {}".format(self.bebida.nome,self.porcentagem)
+        return "{} {}".format(self.bebida.nome,self.porcentagem)
 
 class QuantidadeLitro(QuantidadeCompra):
 
@@ -78,9 +79,7 @@ class QuantidadeLitro(QuantidadeCompra):
 class Compra(models.Model):
 
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,blank=False,null=False)
-    quantidade = models.ForeignKey(QuantidadeCompra,blank=False,null=False)
-
+    # pedido = models.ForeignKey(QuantidadeCompra,blank=False,null=False)
 
     def __unicode__(self):
-        return "{} - {}".format(self.usuario.name, self.quantidade)
-    # reescrever o Save()
+        return "{} - {} ".format(self.usuario.name,self.pedido)

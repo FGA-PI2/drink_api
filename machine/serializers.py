@@ -50,8 +50,18 @@ class QuantidadeCompraSerializer(serializers.ModelSerializer):
 
 class CompraSerializer(serializers.ModelSerializer):
 
-    quantidade = QuantidadeCompraSerializer()
+    pedido = QuantidadeCompraSerializer(many=True)
 
     class Meta:
         model = Compra
         fields = "__all__"
+
+
+    def create(self,validated_data):
+        quantidades_data = validated_data.pop('pedido')
+        compra = Compra.objects.create(**validated_data)
+
+        for quantidade in quantidades_data:
+            QuantidadeCompra.objects.create(compra=compra,**quantidade)
+
+        return compra
