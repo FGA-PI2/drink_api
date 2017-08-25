@@ -3,12 +3,23 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.base_user import AbstractBaseUser
+
+from managers import UserManager
 
 # Create your models here.
-class User(AbstractUser):
+class User(AbstractBaseUser):
+
+    email = models.EmailField(unique=True)
+    creditos = models.FloatField()
+    data_nascimento = models.DateTimeField()
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
 
     def __unicode__(self):
-        return "{} - {}".format(self.id,self.username)
+        return "{} - {} - {}".format(self.id,self.email,self.creditos)
 
 
 class Bebida(models.Model):
