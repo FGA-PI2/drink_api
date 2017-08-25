@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import AbstractBaseUser
+from django.conf import settings
 
 from managers import UserManager
 
@@ -13,6 +14,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True)
     creditos = models.FloatField()
     data_nascimento = models.DateTimeField()
+    is_superuser = models.BooleanField(default=False)
 
     objects = UserManager()
 
@@ -66,8 +68,10 @@ class QuantidadeLitro(QuantidadeCompra):
 
 class Compra(models.Model):
 
-    usuario = models.ForeignKey(User,blank=False,null=False)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL,blank=False,null=False)
     quantidade = models.ForeignKey(QuantidadeCompra,blank=False,null=False)
 
 
+    def __unicode__(self):
+        return "{} - {}".format(self.usuario.name, self.quantidade)
     # reescrever o Save()
