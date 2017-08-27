@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'machine',
+    'administration',
+    'authentication',
     'corsheaders',
     'django_filters',
     'rest_framework.authtoken'
@@ -90,7 +91,7 @@ db_from_ev = dj_database_url.config(conn_max_age=500)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -142,4 +143,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Base-user
-AUTH_USER_MODEL = 'machine.User'
+AUTH_USER_MODEL = 'authentication.User'

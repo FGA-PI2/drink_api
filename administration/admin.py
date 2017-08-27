@@ -8,8 +8,6 @@ from models import *
 from django.db.models.base import ModelBase
 
 
-class UserAdmin(admin.ModelAdmin):
-   search_fields = ('name',)
 
 
 class BebidaAdmin(admin.ModelAdmin):
@@ -20,6 +18,5 @@ class EstoqueAdmin(admin.ModelAdmin):
    fields = ('bebida','quantidade')
    search_fields = ('bebida','quantidade')
 
-admin.site.register(User,UserAdmin)
 admin.site.register(Bebida,BebidaAdmin)
 admin.site.register(Estoque,BebidaAdmin)
