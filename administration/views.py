@@ -11,6 +11,21 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
+class CardapioViewSet(viewsets.ModelViewSet):
+
+    queryset = Cardapio.objects.all()
+    serializer_class = CardapioSerializer
+
+class DrinkViewSet(viewsets.ModelViewSet):
+
+    queryset = Drink.objects.all()
+    serializer_class = DrinkSerializer
+
+
+class QrCodeViewSet(viewsets.ModelViewSet):
+
+    queryset = QrCode.objects.filter(is_valid=True)
+    serializer_class = QrCodeSerializer
 
 class BebidasViewSet(viewsets.ModelViewSet):
     """
