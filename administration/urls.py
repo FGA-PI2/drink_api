@@ -7,15 +7,16 @@ router = routers.SimpleRouter()
 
 # router.register(r'users',UserViewSet)
 router.register(r'bebida',BebidasViewSet)
-router.register(r'racks',RackViewSet)
+router.register(r'rack',RackViewSet)
 router.register(r'estoque',EstoqueViewSet)
-router.register(r'compras',CompraViewSet)
-router.register(r'quantidade-compra',QuantidadeCompraViewSet)
+router.register(r'compra',CompraViewSet)
+router.register(r'pedido',PedidoViewSet)
+router.register(r'code',QrCodeViewSet)
+router.register(r'drink',DrinkViewSet)
+router.register(r'cardapio',CardapioViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^api-token-auth/',views.obtain_auth_token),
-    url(r'users', UserViewList.as_view()),
 ]
 
 urlpatterns += router.urls
