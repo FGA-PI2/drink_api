@@ -93,7 +93,6 @@ DATABASES = {
           default=config('HEROKU_POSTGRESQL_BRONZE_URL')
       )
     }
-}
 
 # this disables Cross domain requests
 CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALLOW_ALL',default=True,cast=bool)
