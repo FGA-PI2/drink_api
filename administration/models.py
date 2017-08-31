@@ -55,14 +55,14 @@ class ItemDrink(Item):
     drink = models.ForeignKey('Drink',blank=True,related_name="proporcao")
 
     def __unicode__(self):
-        return "{}:{} - drink: {}".format(self.bebida,self.porcentagem)
+        return "{}:{}".format(self.bebida,self.porcentagem)
 
 class Drink(models.Model):
 
     nome = models.CharField(max_length=40)
     descricao = models.CharField(max_length=50)
     volume = models.FloatField()
-
+    preco = models.FloatField(default=0)
 
     def __unicode__(self):
         return "{}".format(self.nome)
