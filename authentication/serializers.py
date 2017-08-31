@@ -8,6 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
+        partial = True
         # fields = ('username','email','')
         fields = ('email','is_superuser','creditos','data_nascimento','id','password')
         extra_kwargs = {

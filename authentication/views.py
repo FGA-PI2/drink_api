@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
-class UserViewList(generics.ListCreateAPIView):
+class UserViewList(viewsets.ModelViewSet):
     """
     Simple View to render the User information json.
     """

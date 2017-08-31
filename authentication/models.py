@@ -33,4 +33,4 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
 
     def __unicode__(self):
-        return "{} - {} - {}".format(self.id,self.email,self.creditos)
+        return "{} - {}".format(self.email,self.creditos)
