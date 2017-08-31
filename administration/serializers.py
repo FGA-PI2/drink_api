@@ -7,7 +7,7 @@ class QrCodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = QrCode
-        fields = "__all__"
+        exclude = ('usuario',)
 
 class BebidasSerializer(serializers.ModelSerializer):
 
@@ -37,18 +37,27 @@ class PedidoSerializer(serializers.ModelSerializer):
 class CompraSerializer(serializers.ModelSerializer):
 
     pedido = PedidoSerializer(many=True)
+    qr_code = QrCodeSerializer()
+    # usuario = serializers.PrimaryKeyRelatedField(
+    #     queryset = User.objects.all()
+    # )
 
     class Meta:
         model = Compra
         fields = "__all__"
 
-
     def create(self,validated_data):
         quantidades_data = validated_data.pop('pedido')
-        compra = Compra.objects.create(**validated_data)
+
+        qr_code = validated_data.pop('qr_code')
+        qr_code['usuario'] = validated_data['usuario']
+
+        code = QrCode.objects.create(**qr_code)
+
+        compra = Compra.objects.create(qr_code=code,**validated_data)
 
         for quantidade in quantidades_data:
-            QuantidadeCompra.objects.create(compra=compra,**quantidade)
+            Drink.objects.create(compra=compra,**quantidade)
 
         return compra
 

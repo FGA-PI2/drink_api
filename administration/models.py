@@ -77,6 +77,7 @@ class QuantidadeLitro(Item):
 class Compra(models.Model):
 
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,blank=False,null=False)
+    qr_code = models.ForeignKey('QrCode',null=True)
 
     def __unicode__(self):
         return "{} - {} ".format(self.usuario.name,self.pedido)
