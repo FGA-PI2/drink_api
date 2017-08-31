@@ -63,6 +63,8 @@ class CompraSerializer(serializers.ModelSerializer):
 
 class ItemDrinkSerializer(serializers.ModelSerializer):
 
+    # bebida = BebidasSerializer(read_only=True)
+
     class Meta:
         model = ItemDrink
         fields = "__all__"
@@ -77,7 +79,14 @@ class DrinkSerializer(serializers.ModelSerializer):
 
     def create(self,validated_data):
         misturas = validated_data.pop('proporcao')
-        drink = Drink.objects.create(**validated_data)
+
+        valor_drink = 0
+        for i in misturas:
+            b = Bebida.objects.get(id=i['bebida'].id)
+            volume_bebida_n =  (validated_data['volume']*i['porcentagem']/100)
+            valor_drink += volume_bebida_n * b.preco / b.volume
+
+        drink = Drink.objects.create(preco=valor_drink,**validated_data)
 
         for mistura in misturas:
             ItemDrink.objects.create(drink=drink,**mistura)
