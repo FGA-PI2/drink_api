@@ -26,7 +26,7 @@ class User(AbstractBaseUser):
     creditos = models.FloatField(default=0)
     data_nascimento = models.DateField()
     is_superuser = models.BooleanField(default=False)
-
+    first_name = models.CharField(max_length=30,blank=True)
 
     objects = UserManager()
 

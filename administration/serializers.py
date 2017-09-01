@@ -77,6 +77,7 @@ class DrinkSerializer(serializers.ModelSerializer):
         model = Drink
         fields = "__all__"
 
+
     def create(self,validated_data):
         misturas = validated_data.pop('proporcao')
 
