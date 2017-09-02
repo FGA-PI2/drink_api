@@ -7,7 +7,7 @@ from authentication.models import User
 
 class Bebida(models.Model):
 
-    nome = models.CharField(max_length=20,null=False,blank=False,unique=True)
+    nome = models.CharField(max_length=20,null=False,blank=False,unique=True,primary_key=True)
     preco = models.FloatField()
     volume = models.FloatField()
 
@@ -59,7 +59,7 @@ class ItemDrink(Item):
 
 class Drink(models.Model):
 
-    nome = models.CharField(max_length=40)
+    nome = models.CharField(max_length=40,unique=True,primary_key=True,default="")
     descricao = models.CharField(max_length=50)
     volume = models.FloatField()
     preco = models.FloatField(default=0)
