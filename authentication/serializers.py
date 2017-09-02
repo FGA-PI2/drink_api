@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         partial = True
         # fields = ('username','email','')
-        fields = ('email','is_superuser','creditos','data_nascimento','password','first_name')
+        fields = ('email','is_superuser','creditos','data_nascimento','password','id','first_name')
         extra_kwargs = {
             'password' : {'write_only': True}
         }
