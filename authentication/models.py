@@ -22,7 +22,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 # Create your models here.
 class User(AbstractBaseUser):
 
-    email = models.EmailField(unique=True,primary_key=True)
+    email = models.EmailField(unique=True)
     creditos = models.FloatField(default=0)
     data_nascimento = models.DateField()
     is_superuser = models.BooleanField(default=False)
