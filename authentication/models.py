@@ -22,6 +22,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 # Create your models here.
 class User(AbstractBaseUser):
 
+    id = models.BigIntegerField(primary_key = True)
     email = models.EmailField(unique=True)
     creditos = models.FloatField(default=0)
     data_nascimento = models.DateField()
