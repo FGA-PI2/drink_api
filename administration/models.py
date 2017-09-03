@@ -78,6 +78,8 @@ class Compra(models.Model):
 
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,blank=False,null=False)
     qr_code = models.ForeignKey('QrCode',null=True)
+    gelo = models.BooleanField(default=False)
+    preco = models.FloatField()
 
     def __unicode__(self):
         return "{} - {} ".format(self.usuario.name,self.pedido)
@@ -87,7 +89,7 @@ class QrCode(models.Model):
 
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL)
     is_valid = models.BooleanField(default=False)
-    qr_code = models.URLField(max_length=200)
+    qr_code = models.CharField(max_length=200)
 
     def __unicode__(self):
         return "{} - {}".format(self.compra.usuario.name,self.is_valid)
