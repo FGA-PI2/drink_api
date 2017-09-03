@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.conf import settings
 from authentication.models import User
+from django.utils import timezone
 
 class Bebida(models.Model):
 
@@ -33,6 +34,7 @@ class Estoque(models.Model):
 
 
 class Item(models.Model):
+
 
     bebida = models.ForeignKey('Bebida',null=False,blank=True)
     porcentagem = models.FloatField()
@@ -76,10 +78,12 @@ class QuantidadeLitro(Item):
 
 class Compra(models.Model):
 
+    nome = models.CharField(max_length=40,default="custom")
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,blank=False,null=False)
     qr_code = models.ForeignKey('QrCode',null=True)
     gelo = models.BooleanField(default=False)
-    preco = models.FloatField()
+    preco = models.FloatField(default=0)
+    data_compra = models.DateTimeField(default=timezone.now)
 
     def __unicode__(self):
         return "{} - {} ".format(self.usuario.name,self.pedido)
