@@ -38,9 +38,6 @@ class CompraSerializer(serializers.ModelSerializer):
 
     pedido = PedidoSerializer(many=True)
     qr_code = QrCodeSerializer()
-    # usuario = serializers.PrimaryKeyRelatedField(
-    #     queryset = User.objects.all()
-    # )
 
     class Meta:
         model = Compra
