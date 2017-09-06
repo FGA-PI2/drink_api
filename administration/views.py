@@ -62,4 +62,4 @@ class CompraViewSet(viewsets.ModelViewSet):
     serializer_class = CompraSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     # filter_fields = ('usuario__id','data_compra')
-    filter_class = EventFilter
+    filter_class = CompraFilter
