@@ -10,7 +10,7 @@ import django_filters.rest_framework
 from rest_framework import filters
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from filters import *
+# from filters import *
 # Create your views here.
 
 class CardapioViewSet(viewsets.ModelViewSet):
@@ -61,5 +61,5 @@ class CompraViewSet(viewsets.ModelViewSet):
     queryset = Compra.objects.all()
     serializer_class = CompraSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
-    # filter_fields = ('usuario__id','data_compra')
-    filter_class = CompraFilter
+    filter_fields = ('usuario__id','data_compra')
+    # filter_class = CompraFilter
