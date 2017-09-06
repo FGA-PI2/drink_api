@@ -59,4 +59,4 @@ class CompraViewSet(viewsets.ModelViewSet):
     queryset = Compra.objects.all()
     serializer_class = CompraSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
-    filter_fields = ('usuario__id',)
+    filter_fields = ('usuario__id','data_compra')
