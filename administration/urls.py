@@ -11,6 +11,9 @@ router.register(r'rack',RackViewSet)
 router.register(r'estoque',EstoqueViewSet)
 router.register(r'compra',CompraViewSet)
 router.register(r'pedido',PedidoViewSet)
+router.register(r'code',QrCodeViewSet)
+router.register(r'drink',DrinkViewSet)
+router.register(r'cardapio',CardapioViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

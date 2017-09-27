@@ -26,11 +26,11 @@ class User(AbstractBaseUser):
     creditos = models.FloatField(default=0)
     data_nascimento = models.DateField()
     is_superuser = models.BooleanField(default=False)
-
+    first_name = models.CharField(max_length=30,blank=True)
 
     # objects = UserManager()
 
     USERNAME_FIELD = 'email'
 
     def __unicode__(self):
-        return "{} - {} - {}".format(self.id,self.email,self.creditos)
+        return "{} - {}".format(self.email,self.creditos)
