@@ -11,7 +11,6 @@ from rest_framework import filters
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from filters import *
-# Create your views here.
 
 class CardapioViewSet(viewsets.ModelViewSet):
 
