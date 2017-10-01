@@ -7,25 +7,13 @@ class QrCodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = QrCode
-        exclude = ('usuario',)
+        fields = "__all__"
+        # exclude = ('usuario',)
 
 class BebidasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Bebida
-        fields = "__all__"
-
-
-class RackSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Rack
-        fields = "__all__"
-
-class EstoqueSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Estoque
         fields = "__all__"
 
 class PedidoSerializer(serializers.ModelSerializer):

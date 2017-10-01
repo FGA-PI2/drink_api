@@ -11,33 +11,15 @@ class Bebida(models.Model):
     nome = models.CharField(max_length=20,null=False,blank=False,unique=True,primary_key=True)
     preco = models.FloatField()
     volume = models.FloatField()
+    posicao = models.IntegerField()
 
     def __unicode__(self):
-        return "{} - R${} - Garrafa em: {} ml".format(self.nome,self.preco,self.volume)
-
-class Rack(models.Model):
-
-    date = models.DateTimeField(auto_now=True)
-    quantidade = models.ForeignKey('QuantidadeLitro')
-
-    def __unicode__(self):
-        return "{} - {}".format(self.id,self.date)
-
-class Estoque(models.Model):
-
-    bebida = models.OneToOneField('Bebida',null=False,blank=True,unique=True)
-    quantidade = models.IntegerField()
-
-
-    def __unicode__(self):
-        return "Resta {} {}".format(self.quantidade,self.bebida.nome)
-
+        return "{} - R${} - Garrafa de {} ml. Posicao {}".format(self.nome,self.preco,self.volume,self.posicao)
 
 class Item(models.Model):
 
-
     bebida = models.ForeignKey('Bebida',null=False,blank=True)
-    porcentagem = models.FloatField()
+    volume = models.IntegerField()
 
 
     def __unicode__(self):

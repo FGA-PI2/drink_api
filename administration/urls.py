@@ -7,8 +7,6 @@ router = routers.SimpleRouter()
 
 # router.register(r'users',UserViewSet)
 router.register(r'bebida',BebidasViewSet)
-router.register(r'rack',RackViewSet)
-router.register(r'estoque',EstoqueViewSet)
 router.register(r'compra',CompraViewSet)
 router.register(r'pedido',PedidoViewSet)
 router.register(r'code',QrCodeViewSet)

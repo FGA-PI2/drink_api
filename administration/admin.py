@@ -14,9 +14,4 @@ class BebidaAdmin(admin.ModelAdmin):
    fields = ('nome','preco','volume')
    search_fields = ('nome','preco')
 
-class EstoqueAdmin(admin.ModelAdmin):
-   fields = ('bebida','quantidade')
-   search_fields = ('bebida','quantidade')
-
 admin.site.register(Bebida,BebidaAdmin)
-admin.site.register(Estoque,BebidaAdmin)
