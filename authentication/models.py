@@ -8,7 +8,7 @@ from django.conf import settings
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from rest_framework.authtoken.models import Token
-# from managers import UserManager
+from managers import UserManager
 
 # Create your models here.
 
@@ -28,7 +28,7 @@ class User(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
     first_name = models.CharField(max_length=30,blank=True)
 
-    # objects = UserManager()
+    objects = UserManager()
 
     USERNAME_FIELD = 'email'
 
