@@ -70,8 +70,8 @@ class DrinkSerializer(serializers.ModelSerializer):
         valor_drink = 0
         for i in misturas:
             b = Bebida.objects.get(nome=i['bebida'].nome)
-            #transformacaoo de ml para litro. 
-            volume_bebida_n = validated_data['volume']/100.0
+            #transformacaoo de ml para litro.
+            volume_bebida_n = validated_data['volume']
             valor_drink += volume_bebida_n * b.preco / b.volume
 
         drink = Drink.objects.create(preco=valor_drink,**validated_data)
