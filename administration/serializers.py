@@ -39,10 +39,14 @@ class CompraSerializer(serializers.ModelSerializer):
 
         code = QrCode.objects.create(**qr_code)
 
-        compra = Compra.objects.create(qr_code=code,**validated_data)
 
         for quantidade in quantidades_data:
             Pedido.objects.create(compra=compra,**quantidade)
+            b = Bebida.objects.get(nome=quantidade['bebida'].nome)
+            volume_bebida_n = validated_data['volume']
+            valor_drink += volume_bebida_n * b.preco / b.volume
+
+        compra = Compra.objects.create(qr_code=code,preco=valor_drink,**validated_data)
 
         return compra
 
