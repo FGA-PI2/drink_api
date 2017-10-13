@@ -49,3 +49,4 @@ class CompraViewSet(viewsets.ModelViewSet):
     serializer_class = CompraSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filter_class = CompraFilter
+    http_method_names = ['get','post','head']
