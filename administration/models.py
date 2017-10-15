@@ -12,6 +12,7 @@ class Bebida(models.Model):
     preco = models.FloatField()
     volume = models.FloatField()
     posicao = models.IntegerField()
+    remaining_quantity = models.FloatField(default=0)
 
     def __unicode__(self):
         return "{} - R${} - Garrafa de {} ml. Posicao {}".format(self.nome,self.preco,self.volume,self.posicao)
