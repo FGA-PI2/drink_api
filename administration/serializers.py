@@ -40,6 +40,7 @@ class CompraSerializer(serializers.ModelSerializer):
         code = QrCode.objects.create(**qr_code)
 
 
+        valor_drink = 0
         for quantidade in quantidades_data:
             b = Bebida.objects.get(nome=quantidade['bebida'].nome)
             volume_bebida_n = quantidade['volume']
