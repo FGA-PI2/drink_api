@@ -42,7 +42,7 @@ class CompraSerializer(serializers.ModelSerializer):
 
         for quantidade in quantidades_data:
             b = Bebida.objects.get(nome=quantidade['bebida'].nome)
-            volume_bebida_n = validated_data['volume']
+            volume_bebida_n = quantidade['volume']
             valor_drink += volume_bebida_n * b.preco / b.volume
 
         compra = Compra.objects.create(qr_code=code,preco=valor_drink,**validated_data)
