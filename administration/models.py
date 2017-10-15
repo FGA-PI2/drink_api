@@ -17,6 +17,12 @@ class Bebida(models.Model):
     def __unicode__(self):
         return "{} - R${} - Garrafa de {} ml. Posicao {}".format(self.nome,self.preco,self.volume,self.posicao)
 
+
+    def save(self, *args,**kwargs):
+        if not self.remaining_quantity:
+            self.remaining_quantity = self.volume
+        super(Bebida,self).save(*args,**kwargs)
+
 class Item(models.Model):
 
     bebida = models.ForeignKey('Bebida',null=False,blank=True)
