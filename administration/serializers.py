@@ -12,13 +12,15 @@ class QrCodeSerializer(serializers.ModelSerializer):
 
 class BebidasSerializer(serializers.ModelSerializer):
 
+    posicao = serializers.IntegerField(min_value=1,max_value=3)
+
     class Meta:
         model = Bebida
         fields = "__all__"
 
     def create(self,validated_data):
         if Bebida.objects.count() >= 3:
-            raise serializers.ValidationError("Only 3 Bebidas are allowed",code=400)
+            raise serializers.ValidationError("Only 3 'Bebidas' are allowed",code=400)
         else:
             return Bebida.objects.create(**validated_data)
 
