@@ -5,6 +5,7 @@ from django.db import models
 from django.conf import settings
 from authentication.models import User
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 class Bebida(models.Model):
 
@@ -63,7 +64,7 @@ class QuantidadeLitro(Item):
     m_litros_atual = models.FloatField()
 
     def __unicode__(self):
-        return "{} {} {}".format(self.bebida.name,self.porcentagem,self.m_litros_atual)
+        return "{} {} {}".format(self.bebida.nome,self.porcentagem,self.m_litros_atual)
 
 class Compra(models.Model):
 
