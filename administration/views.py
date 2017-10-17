@@ -35,7 +35,7 @@ class BebidasViewSet(viewsets.ModelViewSet):
 
     queryset = Bebida.objects.all()
     serializer_class = BebidasSerializer
-    lookup_field = "name"
+    lookup_field = "nome"
 
 
 class PedidoViewSet(viewsets.ModelViewSet):
