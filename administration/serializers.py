@@ -16,6 +16,12 @@ class BebidasSerializer(serializers.ModelSerializer):
         model = Bebida
         fields = "__all__"
 
+    def create(self,validated_data):
+        if Bebida.objects.count() >= 3:
+            raise serializers.ValidationError("Only 3 Bebidas are allowed",code=400)
+        else:
+            return Bebida.objects.create(**validated_data)
+
 class PedidoSerializer(serializers.ModelSerializer):
 
     class Meta:
