@@ -13,6 +13,7 @@ class QrCodeSerializer(serializers.ModelSerializer):
 class BebidasSerializer(serializers.ModelSerializer):
 
     posicao = serializers.IntegerField(min_value=1,max_value=3)
+    remaining_quantity = serializers.FloatField(min_value=0)
 
     class Meta:
         model = Bebida
