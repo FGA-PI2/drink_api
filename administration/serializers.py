@@ -27,6 +27,11 @@ class BebidasSerializer(serializers.ModelSerializer):
 
 class PedidoSerializer(serializers.ModelSerializer):
 
+    # posicao = serializers.IntegerField(read_only=True,default=bebida.posicao)
+
+    bebida = BebidasSerializer(read_only=True)
+    bebida_name = serializers.SlugRelatedField(slug_field="nome",queryset=Bebida.objects.all(),source='bebida')
+
     class Meta:
         model = Pedido
         fields = "__all__"
