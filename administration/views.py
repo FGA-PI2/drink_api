@@ -25,7 +25,7 @@ class PayPalView(APIView):
 
         item_name = request.data['name']
         item_preco = request.data['price']
-        buyer = request.data['user']
+        # buyer = request.data['user']
 
         payment = Payment({
         "intent": "sale",
@@ -48,7 +48,7 @@ class PayPalView(APIView):
             "description": "Compra de uma bebida feita no SunBar."}]})
 
         if payment.create():
-            PayPal.objects.create(user=request.data['user'],payment_id=payment.id)
+            # PayPal.objects.create(user=request.data['user'],payment_id=payment.id)
             response = Response({"paymentID": payment.id},status=status.HTTP_201_CREATED)
         else:
             data = payment.error
