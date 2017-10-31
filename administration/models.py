@@ -7,6 +7,12 @@ from authentication.models import User
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 
+
+class PayPal(models.Model):
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,blank=False,null=False)
+    payment_id = models.CharField(max_length=65)
+
 class Bebida(models.Model):
 
     nome = models.CharField(max_length=20,null=False,blank=False,unique=True,primary_key=True)

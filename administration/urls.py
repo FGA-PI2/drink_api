@@ -15,6 +15,8 @@ router.register(r'cardapio',CardapioViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^payment/', PayPalView.as_view()),
+    url(r'^execute/', PayPalExecute.as_view()),
 ]
 
 urlpatterns += router.urls

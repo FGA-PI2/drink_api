@@ -10,7 +10,69 @@ from django_filters import rest_framework as filters
 from rest_framework import filters
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from filters import *
+from paypalrestsdk import Payment
+from rest_framework import status
+
+
+class PayPalView(APIView):
+
+
+
+    def post(self, request,format=None):
+
+        item_name = request.data['name']
+        item_preco = request.data['price']
+        buyer = request.data['user']
+
+        payment = Payment({
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"},
+        "redirect_urls": {
+            "return_url": "http://localhost:8000/payment/execute",
+            "cancel_url": "http://localhost:8000/"},
+        "transactions": [{
+            "item_list": {
+                "items": [{
+                    "name": item_name,
+                    "sku": "item",
+                    "price": item_preco,
+                    "currency": "BRL",
+                    "quantity": 1}]},
+            "amount": {
+                "total": item_preco,
+                "currency": "BRL"},
+            "description": "Compra de uma bebida feita no SunBar."}]})
+
+        if payment.create():
+            PayPal.objects.create(user=request.data['user'],payment_id=payment.id)
+            response = Response({"paymentID": payment.id},status=status.HTTP_201_CREATED)
+        else:
+            data = payment.error
+            response = Response(data,status=status.HTTP_400_BAD_REQUEST)
+
+        return response
+
+
+class PayPalExecute(APIView):
+
+    def post(self,request,format=None):
+
+        payer_id = request.data['payer_id']
+        payment_id = request.data['payment_id']
+
+        payment = Payment.find(payerID)
+
+        if payment.execute({"payer_id": payer_id}):
+            data = payment
+            response = Response(data,status=status.HTTP_201_CREATED)
+        else:
+            data = payment.erro
+            response = Response(data,status=status.HTTP_400_BAD_REQUEST)
+
 
 class CardapioViewSet(viewsets.ModelViewSet):
 

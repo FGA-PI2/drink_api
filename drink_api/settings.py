@@ -8,24 +8,33 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import dj_database_url
-from decouple import config
+import paypalrestsdk
+
+
+
+#declaring the paypal configuration
+
+paypalrestsdk.configure({
+    'mode': 'sandbox',
+    'client_id': 'AVU29Q_Yf1185NMNDV1qgauH6tg4lgB723zFxHsJDT-mZM0CaQ45IK8L50h9zzepoKqwiIs3WkZfHcVe',
+    'client_secret':  'EO1nxVR5swafXDmB1rifri1Fl0FU-if_br8vMRimPwkdOW7dI-tMWjsZLCaJD3z1UfeR3BT7Cl7EeecY'
+    })
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG',default=True,cast=bool)
+SECRET_KEY = '%2)&-x1v)$mtb158j8$%i59akupre8ao@6r4ulatwf%o4(hiba'
 
-ALLOWED_HOSTS = ['*']
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -42,9 +51,12 @@ INSTALLED_APPS = [
     'authentication',
     'corsheaders',
     'django_filters',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'paypal.standard.ipn'
 
 ]
+
+PAYPAL_TEST = True
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -81,21 +93,12 @@ WSGI_APPLICATION = 'drink_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-
-db_from_ev = dj_database_url.config(conn_max_age=500)
-
 DATABASES = {
-    'default': dj_database_url.config(
-          default=config('DATABASE_URL')
-      )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
-
-# this disables Cross domain requests
-CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALLOW_ALL',default=True,cast=bool)
-
-# this allows cookie being passed cross domain
-CORS_ALLOW_CREDENTIALS = config('CORS_ALLOW_CREDENTIALS',default=True,cast=bool)
-
 
 
 # Password validation
@@ -134,8 +137,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
-# Base-user
-AUTH_USER_MODEL = 'authentication.User'
