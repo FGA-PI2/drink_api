@@ -94,7 +94,7 @@ class QrCode(models.Model):
     qr_code = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return "{} - {}".format(self.compra.usuario.name,self.is_valid)
+        return "{} - {}".format(self.usuario.name,self.is_valid)
 
 class Cardapio(models.Model):
 
