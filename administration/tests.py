@@ -72,8 +72,6 @@ class PedidoTest(APITestCase):
 
 
 ##drink
-
-
 class DrinkTest(APITestCase):
 
     factory = APIClient()
