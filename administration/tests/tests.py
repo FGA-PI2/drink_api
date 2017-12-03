@@ -77,76 +77,70 @@ class DrinkTest(APITestCase):
     factory = APIClient()
 
 
+    def setUp(self):
+
+        Bebida.objects.create(
+            nome = "Coca-Cola",
+            posicao = 1,
+            remaining_quantity = 2000,
+            preco = 7,
+            volume = 2000
+        )
+
+        Bebida.objects.create(
+            nome = "Agua",
+            posicao = 2,
+            remaining_quantity = 2000,
+            preco = 7,
+            volume = 2000
+        )
+
+        Bebida.objects.create(
+            nome = "AguaGas",
+            posicao = 3,
+            remaining_quantity = 2000,
+            preco = 7,
+            volume = 2000
+        )
+
+        self.proporcao = [{
+             "bebida": 'Coca-Cola',
+             "volume": 100
+         },
+         {
+             "bebida": 'Agua',
+             "volume": 100
+         },
+         {
+             "bebida": 'AguaGas',
+             "volume": 100
+         }]
+
+        self.nome = "drink"
+        self.descricao = 'uma bebida de teste'
+        self.volume = 300
+
+        self.data = {
+             'proporcao': self.proporcao,
+             'nome': self.nome,
+             'descricao': self.descricao,
+             'volume': self.volume
+         }
+
+        self.url = '/drink/'
+
     def test_create_drink(self):
-        """
-        Esse teste precisa verificar a criacao de um drink.
 
-        para um drink sao criados 3 instancias de 'proporcao'.
-        """
-
-        #criar 3 bebidas
-        url = '/bebida/'
-
-        bebida1 = {
-            "nome": "Coca-Cola",
-            "posicao": 1,
-            "remaining_quantity": 2000,
-            "preco": 7,
-            "volume": 2000
-        }
-
-        bebida2 = {
-            "nome": "Agua",
-            "posicao": 2,
-            "remaining_quantity": 2000,
-            "preco": 7,
-            "volume": 2000
-        }
-
-        bebida3 = {
-            "nome": "AguaGas",
-            "posicao": 3,
-            "remaining_quantity": 2000,
-            "preco": 7,
-            "volume": 2000
-        }
-
-        self.factory.post(url,bebida1,format='json')
-        self.factory.post(url,bebida2,format='json')
-        self.factory.post(url,bebida3,format='json')
-
-
-
-        url = '/drink/'
-
-
-        nome = "drink"
-        descricao = 'uma bebida de teste'
-        volume = 300
-        proporcao = [{
-            "bebida": 'Coca-Cola',
-            "volume": 100
-        },
-        {
-            "bebida": 'Agua',
-            "volume": 100
-        },
-        {
-            "bebida": 'AguaGas',
-            "volume": 100
-        }]
-
-        data = {
-            'proporcao': proporcao,
-            'nome': nome,
-            'descricao': descricao,
-            'volume': volume
-        }
-
-        response = self.factory.post(url,data,format='json')
+        response = self.factory.post(self.url,self.data,format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Drink.objects.count(),1)
         self.assertEqual(Drink.objects.get().nome,'drink')
+
+    def test_valor_drink(self):
+        response = self.factory.post(self.url,self.data,format='json')
+        retorno = self.client.get('/drink/')
+        response.render()
+        self.assertAlmostEqual(response.data['preco'],1.04,delta=0.1)
 
 
 ##Code
