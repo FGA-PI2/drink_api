@@ -8,6 +8,7 @@ from rest_framework.test import APITestCase
 from rest_framework.test import APIClient
 
 from models import *
+from authentication.models import User
 # Create your tests here.
 
 
@@ -41,12 +42,155 @@ class BebidaTest(APITestCase):
 
 ##Pedido
 
+class PedidoTest(APITestCase):
+
+    factory = APIClient()
+
+    def test_create_pedido(self):
+
+        url = '/bebida/'
+        data = {
+            "nome": "Coca-Cola",
+            "posicao": 2,
+            "remaining_quantity": 2000,
+            "preco": 7,
+            "volume": 2000
+        }
+        response = self.factory.post(url,data,format='json')
+
+
+        url = '/pedido/'
+        data = {
+            "bebida_name": 'Coca-Cola',
+            "volume": 350,
+            "compra": None
+        }
+        response = self.factory.post(url,data,format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Pedido.objects.count(),1)
+        self.assertEqual(Pedido.objects.get().bebida.nome,'Coca-Cola')
+
+
 ##drink
+
+
+class DrinkTest(APITestCase):
+
+    factory = APIClient()
+
+
+    def test_create_drink(self):
+        """
+        Esse teste precisa verificar a criacao de um drink.
+
+        para um drink sao criados 3 instancias de 'proporcao'.
+        """
+
+
+        #criar 3 bebidas
+        url = '/bebida/'
+
+        bebida1 = {
+            "nome": "Coca-Cola",
+            "posicao": 1,
+            "remaining_quantity": 2000,
+            "preco": 7,
+            "volume": 2000
+        }
+
+        bebida2 = {
+            "nome": "Agua",
+            "posicao": 2,
+            "remaining_quantity": 2000,
+            "preco": 7,
+            "volume": 2000
+        }
+
+        bebida3 = {
+            "nome": "AguaGas",
+            "posicao": 3,
+            "remaining_quantity": 2000,
+            "preco": 7,
+            "volume": 2000
+        }
+
+        self.factory.post(url,bebida1,format='json')
+        self.factory.post(url,bebida2,format='json')
+        self.factory.post(url,bebida3,format='json')
+
+
+
+        url = '/drink/'
+
+
+        nome = "drink"
+        descricao = 'uma bebida de teste'
+        volume = 300
+        proporcao = [{
+            "bebida": 'Coca-Cola',
+            "volume": 100
+        },
+        {
+            "bebida": 'Agua',
+            "volume": 100
+        },
+        {
+            "bebida": 'AguaGas',
+            "volume": 100
+        }]
+
+        data = {
+            'proporcao': proporcao,
+            'nome': nome,
+            'descricao': descricao,
+            'volume': volume
+        }
+
+        response = self.factory.post(url,data,format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Drink.objects.count(),1)
+        self.assertEqual(Drink.objects.get().nome,'drink')
+
 
 ##Code
 
+class CodeTest(APITestCase):
 
+    def setUp(self):
+        #Create user for code test
+        self.factory = APIClient()
 
+        self.user = {
+            "email": "teste@teste.com",
+            "creditos" : "9999",
+            "data_nascimento":"1999-01-01",
+            "first_name":"teste",
+            "password":"123123"
+        }
+        self.url_user = '/users/'
+
+        User.objects.create(
+            email= "teste@teste.com",
+            creditos=9999,
+            data_nascimento="1999-01-01",
+            first_name="teste",
+            password="123123"
+        )
+
+        self.data = {
+            "is_valid": True,
+            "qr_code": "https://testeqrcode.com",
+            "usuario" : 1 #ForeignKey do user
+        }
+
+        self.url = '/code/'
+
+    def test_create_code(self):
+        response = self.factory.post(self.url,self.data,format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(QrCode.objects.count(),1)
+        self.assertEqual(QrCode.objects.get().usuario.email,'teste@teste.com')
+        self.assertEqual(QrCode.objects.get().is_valid,True)
 
 ##Compra
 
