@@ -47,7 +47,7 @@ class Pedido(Item):
     compra = models.ForeignKey('Compra',blank=True,null=True,related_name="pedido")
 
     def __unicode__(self):
-        return "A Mistura foi {} - {} na compra: {}".format(self.bebida,self.volume,self.compra.id)
+        return "A Mistura foi {} - {}".format(self.bebida,self.volume)
 
 
 class ItemDrink(Item):
