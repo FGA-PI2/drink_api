@@ -15,7 +15,6 @@ from models import User
 
 class UserTest(APITestCase):
 
-
     def setUp(self):
         self.url = '/users/'
         self.data = {

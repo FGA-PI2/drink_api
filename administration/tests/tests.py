@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework.test import APIClient
 
-from models import *
+from administration.models import *
 from authentication.models import User
 # Create your tests here.
 
@@ -83,7 +83,6 @@ class DrinkTest(APITestCase):
 
         para um drink sao criados 3 instancias de 'proporcao'.
         """
-
 
         #criar 3 bebidas
         url = '/bebida/'
@@ -236,17 +235,3 @@ class CompraTest(APITestCase):
             self.assertEqual(Compra.objects.count(),1)
             self.assertEqual(Compra.objects.get().usuario.email,'teste@teste.com')
             self.assertEqual(Compra.objects.get().nome,"Pura Coca-Cola")
-
-
-
-#Testes de validacao
-
-
-## Validar se o numero de bebidas maximo e respeitado
-
-
-
-##validar o volume maximo de um drink/compra
-
-
-##Validar CODE com dados corretos
