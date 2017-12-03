@@ -160,15 +160,6 @@ class CodeTest(APITestCase):
         #Create user for code test
         self.factory = APIClient()
 
-        self.user = {
-            "email": "teste@teste.com",
-            "creditos" : "9999",
-            "data_nascimento":"1999-01-01",
-            "first_name":"teste",
-            "password":"123123"
-        }
-        self.url_user = '/users/'
-
         User.objects.create(
             email= "teste@teste.com",
             creditos=9999,
@@ -194,37 +185,60 @@ class CodeTest(APITestCase):
 
 ##Compra
 
-"""
-{
-        "id": 53,
-        "pedido": [
-            {
-                "id": 116,
-                "bebida": {
-                    "nome": "Rum",
-                    "posicao": 2,
-                    "remaining_quantity": 96820.0,
-                    "preco": 35.0,
-                    "volume": 1000.0
-                },
-                "bebida_name": "Rum",
-                "volume": 400,
-                "compra": 53
-            }
-        ],
-        "qr_code": {
-            "id": 53,
-            "is_valid": false,
-            "qr_code": "https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl={\"usuario\":\"8\",\"data_compra\":\"2017-11-07T15:46:26.649Z\"}",
+class CompraTest(APITestCase):
+
+
+    def setUp(self):
+        #Bebida
+        Bebida.objects.create(
+            nome = "Coca-Cola",
+            posicao = 2,
+            remaining_quantity = 2000,
+            preco = 7,
+            volume = 2000
+        )
+
+        #usuario
+        User.objects.create(
+            email= "teste@teste.com",
+            creditos=9999,
+            data_nascimento="1999-01-01",
+            first_name="teste",
+            password="123123"
+        )
+
+        #code
+        QrCode.objects.create(
+            is_valid = True,
+            qr_code = "https://testeqrcode.com",
+            usuario = User.objects.last()
+        )
+
+        #pedido
+        Pedido.objects.create(
+            bebida = Bebida.objects.last(),
+            volume = 400
+        )
+
+        #infos sobre compra
+        self.factory = APIClient()
+        self.data = {
+            "nome": "Pura Coca-Cola",
+            "gelo": True,
+            "preco": 14.0,
+            "data_compra": "2017-11-07",
             "usuario": 8
-        },
-        "nome": "Puro Rum",
-        "gelo": true,
-        "preco": 14.0,
-        "data_compra": "2017-11-07T15:46:26.649000Z",
-        "usuario": 8
-    },
-"""
+        }
+        self.url = '/compra/'
+
+
+        def test_create_compra(self):
+            response = self.factory.post(self.url,self.data,format='json')
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            self.assertEqual(Compra.objects.count(),1)
+            self.assertEqual(Compra.objects.get().usuario.email,'teste@teste.com')
+            self.assertEqual(Compra.objects.get().nome,"Pura Coca-Cola")
+
 
 
 #Testes de validacao
