@@ -84,7 +84,7 @@ class Compra(models.Model):
     data_compra = models.DateTimeField(default=timezone.now)
 
     def __unicode__(self):
-        return "{} - {} ".format(self.usuario.name,self.pedido)
+        return "{} - {} ".format(self.usuario.email,self.pedido)
 
 
 class QrCode(models.Model):
